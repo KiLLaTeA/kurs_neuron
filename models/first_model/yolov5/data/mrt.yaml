@@ -1,0 +1,5 @@
+train: ../data/mrt/images/train/
+val: ../data/mrt/images/val/
+
+nc: 4
+names: ['Glioma', 'Meningioma', 'No Tumor', 'Pituitary']
