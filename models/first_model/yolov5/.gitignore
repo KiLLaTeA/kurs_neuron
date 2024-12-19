@@ -25,10 +25,13 @@
 
 storage.googleapis.com
 runs/*
+!runs/**
 data/*
 data/images/*
 !data/*.yaml
 !data/hyps
+!data/mrt
+!data/mrt.yaml
 !data/scripts
 !data/images
 !data/images/zidane.jpg

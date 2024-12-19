@@ -1,4 +1,4 @@
-# python train.py --img 640 --batch 16 --epochs 50 --data data/mrt.yaml --cfg models/yolov5s.yaml --weights yolov5s.pt --name mrt_yolov5s_results
+# python train.py --img 640 --batch 16 --epochs 20 --data data/mrt.yaml --cfg models/yolov5s.yaml --weights yolov5s.pt --name mrt_yolov5s_results
 
 # python val.py --data data/mrt.yaml --weights runs/train/mrt_yolov5s_results/weights/best.pt
 
