@@ -1,13 +1,121 @@
-{% extends 'base.html' %}
- 
-{% block content %}
-{{ super() }}
-<p class="first">Главная страница</p>
-<div class="content">
-    <ul class="list-group ">
-        {% for m in menu -%}
-        <li class="list-group-item"><a href="{{m.url}}">{{m.name}}</a></li>
-        {% endfor -%}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация API</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='') }}">
+</head>
+<body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+    }
+    h1 {
+        color: #333;
+    }
+    .endpoint {
+        margin-bottom: 20px;
+    }
+    .endpoint h2 {
+        color: #555;
+    }
+    code {
+        background-color: #f4f4f4;
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+    pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
+</style>
+<h1>Документация API</h1>
+<p>Эта документация предоставляет информацию о том, как использовать эндпоинты API для работы с изображениями и моделями.</p>
+
+<div class="endpoint">
+    <h2>Получить изображения из галереи</h2>
+    <p><strong>Эндпоинт:</strong> <code>GET /api/gallery?folder=&lt;String:folder&gt;</code></p>
+    <p><strong>Описание:</strong> Возвращает список изображений из указанной папки.</p>
+    <p><strong>Параметры:</strong></p>
+    <ul>
+        <li><code>folder</code> (String) - Название папки, из которой нужно получить изображения.</li>
     </ul>
+    <p><strong>Ответ:</strong> JSON-массив с ссылками на изображения.</p>
+    <pre><code>
+[
+    {
+        "url": "http://192.168.0.166:5000/static/images/Glioma/image1.jpg"
+    },
+    {
+        "url": "http://192.168.0.166:5000/static/images/Glioma/image2.jpg"
+    },
+    ...
+]
+    </code></pre>
 </div>
-{% endblock %}
+
+<div class="endpoint">
+    <h2>Тестовый эндпоинт</h2>
+    <p><strong>Эндпоинт:</strong> <code>GET /api/test</code></p>
+    <p><strong>Описание:</strong> Возвращает тестовый JSON-ответ.</p>
+    <p><strong>Ответ:</strong></p>
+    <pre><code>
+{
+    "hello": 123,
+    "test": 321,
+    "heloo": "looma"
+}
+    </code></pre>
+</div>
+
+<div class="endpoint">
+    <h2>Обнаружение объектов на изображении</h2>
+    <p><strong>Эндпоинт:</strong> <code>POST /api/detect</code></p>
+    <p><strong>Описание:</strong> Обрабатывает изображение, обнаруживает объекты с помощью модели YOLO и возвращает результат.</p>
+    <p><strong>Параметры:</strong></p>
+    <ul>
+        <li><code>image</code> (String, base64) - Изображение, закодированное в формате base64.</li>
+    </ul>
+    <p><strong>Ответ:</strong></p>
+    <p>Если объекты найдены:</p>
+    <pre><code>
+{
+    "image": "base64_encoded_image",
+    "text": "Определено: ",
+    "class": "Glioma"
+}
+    </code></pre>
+    <p>Если объекты не найдены:</p>
+    <pre><code>
+{
+    "image": "base64_encoded_image",
+    "text": "Ничего не найдено",
+    "class": "!"
+}
+    </code></pre>
+</div>
+
+<div class="endpoint">
+    <h2>Загрузка изображения в галерею</h2>
+    <p><strong>Эндпоинт:</strong> <code>POST /api/upload</code></p>
+    <p><strong>Описание:</strong> Загружает изображение в указанную папку галереи.</p>
+    <p><strong>Параметры:</strong></p>
+    <ul>
+        <li><code>class</code> (String) - Название папки, в которую нужно загрузить изображение.</li>
+        <li><code>image</code> (String, base64) - Изображение, закодированное в формате base64.</li>
+    </ul>
+    <p><strong>Ответ:</strong></p>
+    <pre><code>
+{
+    "message": "Изображение успешно загружено!"
+}
+    </code></pre>
+</div>
+
+</body>
+</html>
